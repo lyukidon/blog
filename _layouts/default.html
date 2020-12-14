@@ -1,57 +1,49 @@
----
-layout: compress
-# Default layout
-# v2.0
-# https://github.com/cotes2020/jekyll-theme-chirpy
-# © 2017-2019 Cotes Chung
-# MIT Licensed
----
-
 <!DOCTYPE html>
-
-{% capture prefer_mode %}
-  {% if site.theme_mode %}
-    mode="{{ site.theme_mode }}"
-  {% endif %}
-{% endcapture %}
-
-<html lang="{{ site.lang | split: "_" | first | default: "en" }}" {{ prefer_mode }}>
+<html lang="{{ page.lang | default: site.lang | default: "ru" }}">
 
   {% include head.html %}
 
-  <body data-spy="scroll" data-target="#toc">
+  {% if page.title %}
+    <body class="single">
+  {% else %}
+    <body>
+  {% endif %}
 
-    <div id="sidebar" class="d-flex flex-column">
-      {% include sidebar.html %}
+  <div class="toTop">
+    <i class="fas fa-angle-up"></i>  
+  </div>  
+
+
+    <div id="wrapper">
+
+    {% include header.html %}
+
+    <main class="page-content" aria-label="Content">
+      <div id="main">
+        {{ content }}        
+      </div>
+    </main>
+    {% if page.title %}
+     {% include footer.html %}
+    {% else %}
+      {% include index-footer.html %}
+    {% endif %}    
     </div>
 
-    {% include topbar.html %}
-
-    <div id="main-wrapper">
-      <div id="main">
-
-        {% include refactor-content.html content=content %}
-
-        {% include footer.html %}
-
-      </div>
-
-      {% include search-results.html %}
-
-    </div> <!-- #main-wrapper -->
-
-    {% if page.mermaid %}
-      {% include mermaid.html %}
-    {% endif %}
-
-    <div id="mask"></div>
-
-    <a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button">
-      <i class="fas fa-angle-up"></i>
-    </a>
-
-    {% include search-loader.html %}
-
   </body>
+
+  <!-- Scripts -->
+      <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+      <script src="{{"/assets/js/skel.min.js" | prepend: site.baseurl}}"></script>
+      <script src="{{"/assets/js/util.js" | prepend: site.baseurl}}"></script>
+      <!--[if lte IE 8]><script src="{{"/assets/js/ie/respond.min.js" | prepend: site.baseurl}}"></script><![endif]-->
+      <script src="{{"/assets/js/main.js" | prepend: site.baseurl}}"></script>
+      <!--script src="{{"/assets/js/viewportchecker.js" | prepend: site.baseurl}}"></script-->
+      <script src="{{"/assets/js/transition.js" | prepend: site.baseurl}}"></script>
+      <script src="{{"/assets/js/targetblank.js" | prepend: site.baseurl}}"></script>
+      <!--script src="{{"/assets/js/animated.js" | prepend: site.baseurl}}"></script-->
+      <script src="{{"/assets/js/scrollTop.js" | prepend: site.baseurl}}"></script>
+
+      {% include analytics.html %}
 
 </html>
